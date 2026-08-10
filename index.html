@@ -5,69 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مكتبة علوش التعليمية | Aloush Library</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #06b6d4;
             --bg: #f8fafc; --surface: #ffffff; --surface-alt: #f1f5f9;
             --text: #0f172a; --text-secondary: #475569; --text-muted: #94a3b8;
-            --border: #e2e8f0; --danger: #ef4444; --success: #10b981;
-            --radius: 14px; --shadow: 0 1px 3px rgba(0,0,0,0.06); --shadow-lg: 0 10px 20px rgba(0,0,0,0.08);
+            --border: #e2e8f0; --danger: #ef4444; --success: #10b981; --warning: #f59e0b;
+            --radius: 14px; --shadow: 0 1px 3px rgba(0,0,0,0.06);
             --transition: all 0.2s ease;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
 
-        /* SPLASH */
-        .splash-screen {
-            position: fixed; inset: 0; z-index: 9999;
-            background: linear-gradient(135deg, #0f172a, #1e293b, #1e1b4b);
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.8s ease;
-        }
+        .splash-screen { position: fixed; inset: 0; z-index: 9999; background: linear-gradient(135deg, #0f172a, #1e293b, #1e1b4b); display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
         .splash-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .splash-logo {
-            width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 30px; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 25px; font-size: 2.5em; color: #fff; animation: float 3s ease-in-out infinite;
-            box-shadow: 0 20px 50px rgba(99,102,241,0.5);
-        }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-        .splash-title { font-size: 2em; font-weight: 800; color: #f1f5f9; }
-        .splash-sub { color: #94a3b8; font-size: 0.9em; letter-spacing: 3px; margin-bottom: 30px; }
-        .splash-loader { width: 180px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 0 auto; overflow: hidden; }
-        .splash-loader-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 10px; animation: load 2s ease forwards; }
+        .splash-content { text-align: center; padding: 20px; }
+        .splash-logo { width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.8em; color: #fff; font-weight: 900; box-shadow: 0 20px 60px rgba(99,102,241,0.5); animation: logoFloat 3s ease-in-out infinite; }
+        @keyframes logoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        .splash-title { font-family: 'El Messiri','Cairo',sans-serif; font-size: 2em; font-weight: 700; background: linear-gradient(135deg, #f1f5f9, #a5b4fc, #67e8f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+        .splash-subtitle { color: #94a3b8; font-size: 0.9em; letter-spacing: 3px; margin-bottom: 30px; }
+        .splash-loader { width: 180px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 0 auto; overflow: hidden; }
+        .splash-loader-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary), #f59e0b); border-radius: 10px; animation: load 2s ease forwards; }
         @keyframes load { from{width:0} to{width:100%} }
 
-        .main-app { opacity: 0; transition: opacity 0.5s; }
+        .main-app { opacity: 0; transition: opacity 0.6s; }
         .main-app.visible { opacity: 1; }
 
-        /* NAVBAR */
         .navbar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); }
         .navbar-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
         .nav-brand { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .nav-logo { width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; }
         .nav-brand-text h3 { font-size: 1em; font-weight: 800; }
-        .nav-brand-text span { font-size: 0.6em; color: var(--text-muted); letter-spacing: 2px; }
         .nav-btn { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
         .nav-btn:hover { background: var(--surface-alt); }
 
-        /* HERO */
-        .hero { text-align: center; padding: 25px 16px 8px; }
-        .hero h1 { font-size: 1.8em; font-weight: 900; }
-        .hero p { color: var(--text-muted); margin-bottom: 14px; }
-        .stats-row { display: inline-flex; gap: 4px; background: var(--surface); padding: 5px; border-radius: 30px; box-shadow: var(--shadow); border: 1px solid var(--border); }
-        .stat-item { padding: 6px 14px; font-size: 0.8em; font-weight: 700; display: flex; align-items: center; gap: 5px; }
-        .stat-item .num { background: var(--primary); color: #fff; padding: 2px 8px; border-radius: 15px; font-size: 0.85em; }
+        .hero { max-width: 1100px; margin: 0 auto; padding: 20px 16px 8px; text-align: center; }
+        .hero h1 { font-size: 1.6em; font-weight: 900; }
+        .hero p { color: var(--text-muted); font-size: 0.9em; margin-bottom: 16px; }
 
-        /* SEARCH */
+        .stats-bar { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+        .stat-card { background: var(--surface); border-radius: var(--radius); padding: 12px 18px; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; align-items: center; gap: 10px; min-width: 120px; transition: var(--transition); }
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2em; flex-shrink: 0; }
+        .stat-icon.files { background: #ede9fe; color: #6366f1; }
+        .stat-icon.downloads { background: #fef3c7; color: #f59e0b; }
+        .stat-icon.views { background: #d1fae5; color: #10b981; }
+        .stat-icon.today { background: #fee2e2; color: #ef4444; }
+        .stat-info strong { display: block; font-size: 1.1em; font-weight: 800; line-height: 1.2; }
+        .stat-info span { font-size: 0.7em; color: var(--text-muted); }
+
         .search-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 300; display: none; align-items: flex-start; justify-content: center; padding: 70px 16px; }
         .search-overlay.show { display: flex; }
-        .search-box { background: var(--surface); border-radius: var(--radius); padding: 6px; display: flex; width: 100%; max-width: 500px; box-shadow: var(--shadow-lg); }
+        .search-box { background: var(--surface); border-radius: var(--radius); padding: 6px; display: flex; width: 100%; max-width: 500px; }
         .search-box input { flex: 1; border: none; padding: 12px; font-size: 1em; font-family: inherit; outline: none; }
         .search-box button { width: 40px; border: none; background: var(--surface-alt); border-radius: 12px; cursor: pointer; }
 
-        /* GRADES */
         .grades-section { max-width: 1100px; margin: 0 auto 14px; padding: 0 16px; }
         .section-label { font-size: 0.75em; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; }
         .grades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
@@ -78,7 +71,6 @@
         .grade-card h3 { font-size: 0.8em; font-weight: 700; }
         .grade-card .cnt { font-size: 0.7em; color: var(--text-muted); }
 
-        /* SUBJECTS */
         .subjects-panel { max-width: 1100px; margin: 0 auto 10px; padding: 0 16px; display: none; animation: slideIn 0.3s; }
         .subjects-panel.show { display: block; }
         @keyframes slideIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
@@ -90,44 +82,45 @@
         .subj-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
         .back-btn { padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-family: inherit; font-size: 0.75em; font-weight: 700; margin-bottom: 8px; }
 
-        /* FILES */
         .files-section { max-width: 1100px; margin: 0 auto; padding: 0 16px 60px; }
-        .files-header { margin-bottom: 10px; }
+        .files-header { margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
         .files-header h2 { font-size: 1.1em; font-weight: 800; }
-        .files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-        .file-card { background: var(--surface); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; transition: var(--transition); }
-        .file-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .sort-btn { padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-family: inherit; font-size: 0.75em; font-weight: 700; }
+        .files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+        .file-card { background: var(--surface); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; transition: var(--transition); }
+        .file-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .file-card .top { display: flex; gap: 10px; }
-        .file-card .pdf-icon { width: 38px; height: 38px; background: #fef2f2; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #dc2626; font-size: 1.1em; flex-shrink: 0; }
+        .file-card .pdf-icon { width: 40px; height: 40px; background: #fef2f2; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #dc2626; font-size: 1.1em; flex-shrink: 0; }
+        .file-card .info { flex: 1; min-width: 0; }
         .file-card .info h3 { font-size: 0.9em; font-weight: 700; }
-        .file-card .info .specs { font-size: 0.75em; color: var(--text-muted); }
+        .file-card .info .specs { font-size: 0.75em; color: var(--text-muted); margin-top: 2px; }
         .file-card .badges { display: flex; gap: 4px; flex-wrap: wrap; }
-        .badge { padding: 2px 7px; border-radius: 4px; font-size: 0.65em; font-weight: 700; }
+        .badge { padding: 3px 8px; border-radius: 5px; font-size: 0.68em; font-weight: 700; }
         .badge-grade { background: #ede9fe; color: #5b21b6; }
         .badge-subject { background: #fef3c7; color: #92400e; }
+        .file-card .stats-row { display: flex; gap: 10px; align-items: center; padding-top: 6px; font-size: 0.73em; color: var(--text-muted); }
+        .file-card .stats-row span { display: flex; align-items: center; gap: 3px; }
+        .file-card .stats-row .downloads { color: var(--primary); font-weight: 700; }
+        .file-card .stats-row .views { color: var(--success); font-weight: 700; }
         .file-card .bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); }
         .file-card .date { font-size: 0.7em; color: var(--text-muted); }
-        .file-card .dl-btn { padding: 7px 13px; background: var(--primary); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.8em; display: flex; align-items: center; gap: 5px; }
-        .file-card .dl-btn:hover { background: var(--primary-dark); }
+        .file-card .dl-btn { padding: 8px 16px; background: var(--primary); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.82em; display: flex; align-items: center; gap: 5px; transition: var(--transition); }
+        .file-card .dl-btn:hover { background: var(--primary-dark); box-shadow: 0 6px 15px rgba(99,102,241,0.4); }
 
-        .empty-state { grid-column: 1/-1; text-align: center; padding: 40px; background: var(--surface); border-radius: var(--radius); border: 2px dashed var(--border); }
-        .empty-state .icon { font-size: 3em; opacity: 0.4; margin-bottom: 8px; }
+        .empty-state { grid-column: 1/-1; text-align: center; padding: 50px; background: var(--surface); border-radius: var(--radius); border: 2px dashed var(--border); }
 
-        /* ADMIN MODAL */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px; }
         .modal-overlay.show { display: flex; }
-        .modal { background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto; padding: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
-        .modal h3 { font-weight: 800; margin-bottom: 12px; font-size: 1.1em; }
+        .modal { background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto; padding: 20px; }
         .form-group { margin-bottom: 10px; }
         .form-group label { font-weight: 700; font-size: 0.75em; color: var(--text-secondary); display: block; margin-bottom: 3px; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 9px 12px; border: 2px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.85em; background: var(--surface-alt); color: var(--text); }
-        .form-group textarea { resize: vertical; min-height: 60px; }
+        .form-group input, .form-group select { width: 100%; padding: 9px 12px; border: 2px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.85em; background: var(--surface-alt); color: var(--text); }
         .btn { padding: 10px 16px; border-radius: 8px; font-family: inherit; font-weight: 700; font-size: 0.85em; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 5px; justify-content: center; }
         .btn-primary { background: var(--primary); color: #fff; width: 100%; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); width: 100%; margin-top: 5px; }
+        .btn-outline { background: transparent; border: 2px solid var(--border); width: 100%; margin-top: 5px; color: var(--text); }
         .btn-danger { background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; font-size: 0.7em; padding: 4px 10px; border-radius: 6px; }
         .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.8em; }
+        .admin-stats { display: flex; gap: 10px; font-size: 0.7em; color: var(--text-muted); }
 
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1e293b; color: #fff; padding: 10px 18px; border-radius: 12px; font-weight: 700; font-size: 0.8em; z-index: 2000; transition: transform 0.3s; }
         .toast.show { transform: translateX(-50%) translateY(0); }
@@ -137,9 +130,12 @@
         .footer { text-align: center; padding: 14px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.7em; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.4em; }
+            .splash-logo { width: 80px; height: 80px; font-size: 2.2em; }
+            .splash-title { font-size: 1.5em; }
+            .hero h1 { font-size: 1.3em; }
             .grades-grid { grid-template-columns: repeat(2, 1fr); }
             .files-grid { grid-template-columns: 1fr; }
+            .stat-card { padding: 10px 14px; min-width: 80px; }
         }
         @media (prefers-color-scheme: dark) {
             :root { --bg: #0f172a; --surface: #1e293b; --surface-alt: #273548; --text: #f1f5f9; --text-secondary: #cbd5e1; --text-muted: #94a3b8; --border: #334155; }
@@ -150,10 +146,12 @@
 <body>
 
     <div class="splash-screen" id="splash">
-        <div class="splash-logo"><i class="fas fa-book-open"></i></div>
-        <h1 class="splash-title">مكتبة علوش التعليمية</h1>
-        <p class="splash-sub">ALOUSH LIBRARY</p>
-        <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+        <div class="splash-content">
+            <div class="splash-logo"><i class="fas fa-book-open"></i></div>
+            <h1 class="splash-title">مكتبة علوش التعليمية</h1>
+            <p class="splash-subtitle">ALOUSH LIBRARY</p>
+            <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+        </div>
     </div>
 
     <div class="main-app" id="mainApp">
@@ -161,7 +159,7 @@
             <div class="navbar-inner">
                 <div class="nav-brand" onclick="location.reload()">
                     <div class="nav-logo"><i class="fas fa-graduation-cap"></i></div>
-                    <div class="nav-brand-text"><h3>مكتبة علوش</h3><span>ALOUSH</span></div>
+                    <div class="nav-brand-text"><h3>مكتبة علوش</h3></div>
                 </div>
                 <div style="display:flex;gap:4px;">
                     <button class="nav-btn" onclick="openSearch()"><i class="fas fa-search"></i></button>
@@ -173,14 +171,16 @@
         <div class="hero">
             <h1>📚 مكتبة علوش التعليمية</h1>
             <p>اختر الصف الدراسي ثم المادة لعرض الملفات</p>
-            <div class="stats-row">
-                <div class="stat-item">📄 <span class="num" id="totalFiles">0</span> ملف</div>
+            <div class="stats-bar" id="statsBar">
+                <div class="stat-card"><div class="stat-icon files"><i class="fas fa-file-pdf"></i></div><div class="stat-info"><strong id="heroTotal">0</strong><span>ملف</span></div></div>
+                <div class="stat-card"><div class="stat-icon downloads"><i class="fas fa-download"></i></div><div class="stat-info"><strong id="heroDownloads">0</strong><span>تحميل</span></div></div>
+                <div class="stat-card"><div class="stat-icon views"><i class="fas fa-eye"></i></div><div class="stat-info"><strong id="heroViews">0</strong><span>مشاهدة</span></div></div>
+                <div class="stat-card"><div class="stat-icon today"><i class="fas fa-calendar-check"></i></div><div class="stat-info"><strong id="heroToday">0</strong><span>اليوم</span></div></div>
             </div>
         </div>
 
         <div class="search-overlay" id="searchOverlay">
             <div class="search-box">
-                <i class="fas fa-search" style="padding:0 10px;color:var(--text-muted);"></i>
                 <input type="text" id="searchInput" placeholder="ابحث عن ملف..." oninput="renderFiles()" autofocus>
                 <button onclick="closeSearch()"><i class="fas fa-times"></i></button>
             </div>
@@ -200,16 +200,20 @@
         </div>
 
         <div class="files-section">
-            <div class="files-header"><h2 id="filesTitle">📂 جميع الملفات</h2></div>
-            <div class="files-grid" id="filesGrid">
-                <div class="empty-state"><div class="icon">📭</div><h3>اختر الصف والمادة</h3><p>الملفات ستظهر هنا</p></div>
+            <div class="files-header">
+                <h2 id="filesTitle">📂 جميع الملفات</h2>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <button class="sort-btn" onclick="sortFiles('newest')"><i class="fas fa-clock"></i> الأحدث</button>
+                    <button class="sort-btn" onclick="sortFiles('downloads')"><i class="fas fa-download"></i> الأكثر تحميلاً</button>
+                    <button class="sort-btn" onclick="sortFiles('views')"><i class="fas fa-eye"></i> الأكثر مشاهدة</button>
+                </div>
             </div>
+            <div class="files-grid" id="filesGrid"></div>
         </div>
 
         <div class="footer">© 2024 مكتبة علوش التعليمية - جميع الحقوق محفوظة</div>
     </div>
 
-    <!-- ADMIN -->
     <div class="modal-overlay" id="adminModal">
         <div class="modal">
             <h3>🔐 لوحة التحكم</h3>
@@ -219,33 +223,43 @@
                 <button class="btn btn-outline" onclick="closeAdmin()">إلغاء</button>
             </div>
             <div id="adminPanel" style="display:none;">
-                <p style="background:#fef3c7;padding:8px 12px;border-radius:8px;font-size:0.75em;margin-bottom:12px;color:#92400e;">
-                    ⚠️ هذه اللوحة تعطيك كود جاهز لتضيفه في ملف <strong>files.json</strong> على GitHub
+                <p style="background:#d1fae5;padding:8px 12px;border-radius:8px;font-size:0.75em;margin-bottom:12px;color:#065f46;">
+                    ✅ أضف الملف وسيظهر <strong>فوراً لجميع الزوار</strong> مع إحصائيات مشتركة!
                 </p>
-                <div class="form-group"><label>📄 اسم الملف</label><input type="text" id="fileName" placeholder="اسم الكتاب"></div>
-                <div class="form-group"><label>📋 الوصف</label><textarea id="fileSpecs" placeholder="المواصفات"></textarea></div>
+                <div class="form-group"><label>📄 اسم الملف</label><input type="text" id="fileName"></div>
+                <div class="form-group"><label>📋 الوصف</label><input type="text" id="fileSpecs"></div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
                     <div class="form-group"><label>🎓 الصف</label><select id="fileGrade"><option value="">اختر</option></select></div>
                     <div class="form-group"><label>📖 المادة</label><select id="fileSubject"><option value="">اختر</option></select></div>
                 </div>
-                <div class="form-group"><label>🏷️ تصنيف</label><input type="text" id="fileCategory" placeholder="كتاب، ملزمة..."></div>
                 <div class="form-group"><label>🔗 رابط Google Drive</label><input type="url" id="fileLink" placeholder="https://drive.google.com/..."></div>
-                <button class="btn btn-primary" onclick="generateJSON()"><i class="fas fa-code"></i> توليد كود JSON</button>
-                <button class="btn btn-outline" onclick="copyAllJSON()"><i class="fas fa-copy"></i> نسخ كل الملفات</button>
-                <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
-                    <strong style="font-size:0.85em;">الملفات الحالية:</strong>
+                <button class="btn btn-primary" onclick="addFile()"><i class="fas fa-plus-circle"></i> إضافة (للجميع)</button>
+                <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+                    <strong>الملفات والإحصائيات:</strong>
                     <div id="adminList"></div>
-                </div>
-                <div id="generatedCode" style="margin-top:12px;display:none;">
-                    <strong style="font-size:0.85em;">📋 كود JSON لهذا الملف:</strong>
-                    <textarea id="jsonOutput" readonly style="width:100%;height:120px;font-family:monospace;font-size:0.7em;padding:8px;border-radius:8px;border:1px solid var(--border);margin-top:6px;background:#f8fafc;direction:ltr;"></textarea>
-                    <button class="btn btn-primary" onclick="copyGenerated()" style="margin-top:6px;"><i class="fas fa-copy"></i> نسخ الكود</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="toast" id="toast"></div>
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script>
+        // إعدادات Firebase الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJM9TTCH0mKOnJ8P8_iUy-liSU1b9a4Yk",
+            authDomain: "aliweb-b5987.firebaseapp.com",
+            projectId: "aliweb-b5987",
+            storageBucket: "aliweb-b5987.firebasestorage.app",
+            messagingSenderId: "17926877107",
+            appId: "1:17926877107:web:8cf9fe27e54a841782e5c6"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 
     <script>
         const GRADES = {
@@ -256,14 +270,43 @@
             bacSci:{name:'بكالوريا علمي',icon:'fa-flask',subjects:['الرياضيات','الفيزياء','الكيمياء','الأحياء','اللغة العربية','اللغة الإنجليزية','اللغة الفرنسية','التربية الإسلامية']}
         };
         const ADMIN_PASS = 'admin123';
-        let allFiles = [];
-        let selGrade = null, selSubject = null, isAdmin = false;
+        let allFiles = [], selGrade = null, selSubject = null, isAdmin = false, currentSort = 'newest';
 
+        // تحميل الملفات من Firebase
         async function loadFiles() {
-            try { const r = await fetch('files.json'); if(r.ok) allFiles = await r.json(); } catch { allFiles = []; }
+            try {
+                const snap = await db.collection('files').orderBy('createdAt','desc').get();
+                allFiles = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch(e) { allFiles = []; }
         }
+
         function dl(url) { const m = url.match(/\/d\/([^\/]+)/) || url.match(/id=([^&]+)/); return m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : url; }
         function toast(m, t='success') { const el = document.getElementById('toast'); el.innerHTML = m; el.className = `toast ${t} show`; clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2500); }
+
+        // تحديث التحميلات والمشاهدات في Firebase
+        async function incrementStat(id, field) {
+            try {
+                const ref = db.collection('files').doc(id);
+                const doc = await ref.get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    const current = data[field] || 0;
+                    await ref.update({ [field]: current + 1 });
+                }
+            } catch(e) {}
+        }
+
+        function updateHeroStats() {
+            const today = new Date().toLocaleDateString('ar-SA');
+            document.getElementById('heroTotal').textContent = allFiles.length;
+            document.getElementById('heroToday').textContent = allFiles.filter(f => f.date === today).length;
+            let totalDl = 0, totalViews = 0;
+            allFiles.forEach(f => { totalDl += (f.downloads || 0); totalViews += (f.views || 0); });
+            document.getElementById('heroDownloads').textContent = totalDl;
+            document.getElementById('heroViews').textContent = totalViews;
+        }
+
+        function sortFiles(type) { currentSort = type; renderFiles(); }
 
         function renderGrades() {
             document.getElementById('gradesGrid').innerHTML = Object.entries(GRADES).map(([k,g]) => {
@@ -273,6 +316,7 @@
         }
         function pickGrade(k) { selGrade = (selGrade===k) ? null : k; selSubject = null; renderGrades(); renderSubjects(); renderFiles(); }
         function resetGrade() { selGrade = null; selSubject = null; document.getElementById('subjectsPanel').classList.remove('show'); renderGrades(); renderFiles(); }
+
         function renderSubjects() {
             const panel = document.getElementById('subjectsPanel');
             if (!selGrade || !GRADES[selGrade]) { panel.classList.remove('show'); return; }
@@ -287,28 +331,42 @@
 
         function renderFiles() {
             const search = (document.getElementById('searchInput')?.value||'').trim().toLowerCase();
-            let f = allFiles;
+            let f = [...allFiles];
             if (selGrade) f = f.filter(x => x.grade === selGrade);
             if (selSubject) f = f.filter(x => x.subject === selSubject);
             if (search) f = f.filter(x => x.name.toLowerCase().includes(search) || (x.subject||'').toLowerCase().includes(search));
 
-            document.getElementById('totalFiles').textContent = allFiles.length;
+            if (currentSort === 'downloads') f.sort((a,b) => (b.downloads||0) - (a.downloads||0));
+            else if (currentSort === 'views') f.sort((a,b) => (b.views||0) - (a.views||0));
+            else f.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+
+            updateHeroStats();
             document.getElementById('filesTitle').textContent = selSubject ? selSubject : selGrade ? GRADES[selGrade].name : 'جميع الملفات';
 
             const grid = document.getElementById('filesGrid');
-            if (!f.length) { grid.innerHTML = '<div class="empty-state"><div class="icon">📭</div><h3>لا ملفات</h3></div>'; return; }
+            if (!f.length) { grid.innerHTML = '<div class="empty-state"><h3>📭 لا ملفات</h3></div>'; return; }
+
             grid.innerHTML = f.map(x => {
                 const gn = x.grade && GRADES[x.grade] ? GRADES[x.grade].name : '';
-                return `<div class="file-card">
+                return `<div class="file-card" onmouseenter="incrementStat('${x.id}','views');setTimeout(()=>loadFiles().then(()=>renderFiles()),500);">
                     <div class="top"><div class="pdf-icon"><i class="fas fa-file-pdf"></i></div><div class="info"><h3>${x.name}</h3><p class="specs">${x.specs||''}</p></div></div>
                     <div class="badges">${gn?`<span class="badge badge-grade">🎓 ${gn}</span>`:''}${x.subject?`<span class="badge badge-subject">📖 ${x.subject}</span>`:''}</div>
-                    <div class="bottom"><span class="date">📅 ${x.date||''}</span><a href="${dl(x.link)}" target="_blank" class="dl-btn"><i class="fas fa-download"></i> تحميل</a></div></div>`;
+                    <div class="stats-row">
+                        <span class="downloads"><i class="fas fa-download"></i> ${x.downloads||0} تحميل</span>
+                        <span class="views"><i class="fas fa-eye"></i> ${x.views||0} مشاهدة</span>
+                        <span class="date"><i class="far fa-clock"></i> ${x.date||''}</span>
+                    </div>
+                    <div class="bottom">
+                        <span></span>
+                        <a href="${dl(x.link)}" target="_blank" class="dl-btn" onclick="incrementStat('${x.id}','downloads');setTimeout(()=>loadFiles().then(()=>renderFiles()),500);"><i class="fas fa-download"></i> تحميل</a>
+                    </div>
+                </div>`;
             }).join('');
         }
 
         function openSearch() { document.getElementById('searchOverlay').classList.add('show'); document.getElementById('searchInput').focus(); }
         function closeSearch() { document.getElementById('searchOverlay').classList.remove('show'); document.getElementById('searchInput').value=''; renderFiles(); }
-        document.getElementById('searchOverlay').addEventListener('click', function(e) { if(e.target===this) closeSearch(); });
+        document.getElementById('searchOverlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeSearch(); });
         document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeSearch(); closeAdmin(); } });
 
         // ============ ADMIN ============
@@ -316,9 +374,7 @@
             document.getElementById('adminModal').classList.add('show');
             document.getElementById('loginSec').style.display='block';
             document.getElementById('adminPanel').style.display='none';
-            document.getElementById('adminPass').value='';
-            document.getElementById('generatedCode').style.display='none';
-            isAdmin=false;
+            document.getElementById('adminPass').value=''; isAdmin=false;
             const gs = document.getElementById('fileGrade');
             gs.innerHTML='<option value="">اختر</option>'+Object.entries(GRADES).map(([k,g])=>`<option value="${k}">${g.name}</option>`).join('');
             gs.onchange=function(){
@@ -338,41 +394,46 @@
             }else{toast('❌ خطأ','error');}
         }
 
-        function generateJSON() {
-            const name = document.getElementById('fileName').value.trim();
-            const specs = document.getElementById('fileSpecs').value.trim();
-            const grade = document.getElementById('fileGrade').value;
-            const subject = document.getElementById('fileSubject').value;
-            const category = document.getElementById('fileCategory').value.trim();
-            const link = document.getElementById('fileLink').value.trim();
-            if (!name || !link) return toast('❌ املأ الحقول المطلوبة', 'error');
+        // ============ إضافة ملف مباشر للجميع ============
+        async function addFile() {
+            if(!isAdmin) return toast('❌ سجل الدخول','error');
+            const name=document.getElementById('fileName').value.trim();
+            const specs=document.getElementById('fileSpecs').value.trim();
+            const grade=document.getElementById('fileGrade').value;
+            const subject=document.getElementById('fileSubject').value;
+            const link=document.getElementById('fileLink').value.trim();
+            if(!name||!link) return toast('❌ املأ الحقول','error');
 
-            const newFile = {
-                id: Date.now().toString(),
-                name, specs, grade, subject, category, link,
-                date: new Date().toLocaleDateString('ar-SA')
-            };
-
-            const jsonStr = JSON.stringify(newFile, null, 2);
-            document.getElementById('jsonOutput').value = jsonStr;
-            document.getElementById('generatedCode').style.display = 'block';
-            toast('✅ تم توليد الكود - انسخه وأضفه لملف files.json');
+            try {
+                await db.collection('files').add({
+                    name, specs, grade, subject, link,
+                    downloads: 0, views: 0,
+                    date: new Date().toLocaleDateString('ar-SA'),
+                    createdAt: Date.now()
+                });
+                ['fileName','fileSpecs','fileLink'].forEach(id=>document.getElementById(id).value='');
+                document.getElementById('fileGrade').value=''; document.getElementById('fileSubject').value='';
+                await loadFiles();
+                renderFiles(); renderGrades(); if(selGrade) renderSubjects(); renderAdminList();
+                toast('✅ تمت الإضافة ويظهر للجميع فوراً!');
+            } catch(e) { toast('❌ خطأ','error'); }
         }
 
-        function copyGenerated() {
-            const text = document.getElementById('jsonOutput').value;
-            navigator.clipboard.writeText(text).then(() => toast('✅ تم النسخ')).catch(() => toast('❌ فشل النسخ', 'error'));
-        }
-
-        function copyAllJSON() {
-            const jsonStr = JSON.stringify(allFiles, null, 2);
-            navigator.clipboard.writeText(jsonStr).then(() => toast('✅ تم نسخ كل الملفات')).catch(() => toast('❌ فشل النسخ', 'error'));
+        async function delFile(id) {
+            if(!isAdmin) return;
+            if(!confirm('متأكد من حذف الملف؟')) return;
+            try {
+                await db.collection('files').doc(id).delete();
+                await loadFiles();
+                renderFiles(); renderGrades(); if(selGrade) renderSubjects(); renderAdminList();
+                toast('🗑️ تم الحذف');
+            } catch(e) { toast('❌ خطأ','error'); }
         }
 
         function renderAdminList() {
-            const c = document.getElementById('adminList');
-            if (!allFiles.length) { c.innerHTML = '<p style="color:var(--text-muted);font-size:0.8em;">لا ملفات</p>'; return; }
-            c.innerHTML = allFiles.map(x => `<div class="admin-item"><span>📄 ${x.name}</span><span style="font-size:0.7em;color:var(--text-muted);">${x.grade||''} - ${x.subject||''}</span></div>`).join('');
+            const c=document.getElementById('adminList');
+            if(!allFiles.length){c.innerHTML='<p style="font-size:0.8em;">لا ملفات</p>';return;}
+            c.innerHTML=allFiles.map(x=>`<div class="admin-item"><span>📄 ${x.name}</span><span class="admin-stats">👁️ ${x.views||0} | ⬇️ ${x.downloads||0}</span><button class="btn-danger" onclick="delFile('${x.id}')">🗑️</button></div>`).join('');
         }
 
         // SECRET
@@ -381,18 +442,17 @@
         document.getElementById('secretBtn').addEventListener('mouseup',()=>clearTimeout(pt));
         document.getElementById('secretBtn').addEventListener('touchstart',()=>{pt=setTimeout(openAdmin,2000);});
         document.getElementById('secretBtn').addEventListener('touchend',()=>clearTimeout(pt));
-        document.getElementById('adminModal').addEventListener('click',function(e){if(e.target===this)closeAdmin();});
+        document.getElementById('adminModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeAdmin();});
 
-        // INIT
         async function init() {
             await loadFiles();
             renderGrades();
             renderFiles();
-            setTimeout(() => {
+            updateHeroStats();
+            setTimeout(()=>{
                 document.getElementById('splash').classList.add('hidden');
                 document.getElementById('mainApp').classList.add('visible');
-                setTimeout(() => { const s = document.getElementById('splash'); if(s) s.remove(); }, 500);
-            }, 2500);
+            },2500);
         }
         init();
     </script>
