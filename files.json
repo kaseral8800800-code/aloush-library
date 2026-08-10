@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "name": "كتاب الرياضيات للصف السابع",
+    "specs": "280 صفحة | الحجم: 15MB | المنهاج 2024",
+    "grade": "grade7",
+    "subject": "الرياضيات",
+    "category": "كتاب",
+    "link": "https://drive.google.com/file/d/EXAMPLE1/view",
+    "date": "2024-01-01"
+  },
+  {
+    "id": "2",
+    "name": "كتاب العلوم للصف الثامن",
+    "specs": "200 صفحة | الحجم: 12MB",
+    "grade": "grade8",
+    "subject": "العلوم",
+    "category": "كتاب",
+    "link": "https://drive.google.com/file/d/EXAMPLE2/view",
+    "date": "2024-01-02"
+  },
+  {
+    "id": "3",
+    "name": "ملزمة الفيزياء للصف التاسع",
+    "specs": "150 صفحة | الحجم: 10MB",
+    "grade": "grade9",
+    "subject": "الفيزياء",
+    "category": "ملزمة",
+    "link": "https://drive.google.com/file/d/EXAMPLE3/view",
+    "date": "2024-01-03"
+  },
+  {
+    "id": "4",
+    "name": "مذكرة الفلسفة - بكالوريا أدبي",
+    "specs": "180 صفحة | الحجم: 8MB",
+    "grade": "bacLit",
+    "subject": "الفلسفة",
+    "category": "مذكرة",
+    "link": "https://drive.google.com/file/d/EXAMPLE4/view",
+    "date": "2024-01-04"
+  },
+  {
+    "id": "5",
+    "name": "دليل الكيمياء - بكالوريا علمي",
+    "specs": "350 صفحة | الحجم: 22MB",
+    "grade": "bacSci",
+    "subject": "الكيمياء",
+    "category": "دليل",
+    "link": "https://drive.google.com/file/d/EXAMPLE5/view",
+    "date": "2024-01-05"
+  }
+]
