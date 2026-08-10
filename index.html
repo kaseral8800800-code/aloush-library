@@ -39,14 +39,8 @@
         .nav-brand { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .nav-logo { width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; }
         .nav-brand-text h3 { font-size: 1em; font-weight: 800; }
-        .nav-btn { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: var(--transition); position: relative; }
+        .nav-btn { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
         .nav-btn:hover { background: var(--surface-alt); }
-        .nav-btn .notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; display: none; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.4)} 50%{box-shadow:0 0 0 8px rgba(239,68,68,0)} }
-
-        /* NEW FILES NOTIFICATION */
-        .new-files-bar { background: linear-gradient(135deg, #d1fae5, #ede9fe); padding: 10px 16px; text-align: center; font-weight: 700; font-size: 0.85em; cursor: pointer; display: none; animation: slideDown 0.3s ease; }
-        @keyframes slideDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
 
         /* HERO */
         .hero { max-width: 1100px; margin: 0 auto; padding: 20px 16px 8px; text-align: center; }
@@ -100,7 +94,7 @@
         .files-header h2 { font-size: 1.1em; font-weight: 800; }
         .sort-btn { padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-family: inherit; font-size: 0.75em; font-weight: 700; }
         .sort-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-        .files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+        .files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
         .file-card { background: var(--surface); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; transition: var(--transition); }
         .file-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .file-card .top { display: flex; gap: 10px; }
@@ -113,10 +107,9 @@
         .badge-grade { background: #ede9fe; color: #5b21b6; }
         .badge-subject { background: #fef3c7; color: #92400e; }
 
-        /* STARS */
-        .stars-row { display: flex; align-items: center; gap: 4px; font-size: 0.85em; }
+        .stars-row { display: flex; align-items: center; gap: 3px; font-size: 0.85em; }
         .stars-row .star { color: #f59e0b; cursor: pointer; transition: var(--transition); }
-        .stars-row .star:hover { transform: scale(1.2); }
+        .stars-row .star:hover { transform: scale(1.3); }
         .stars-row .star.active { color: #f59e0b; }
         .stars-row .star.inactive { color: #d1d5db; }
         .stars-row .rating-text { font-size: 0.75em; color: var(--text-muted); margin-right: 4px; }
@@ -130,14 +123,6 @@
         .file-card .date { font-size: 0.7em; color: var(--text-muted); }
         .file-card .dl-btn { padding: 8px 16px; background: var(--primary); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.82em; display: flex; align-items: center; gap: 5px; transition: var(--transition); }
         .file-card .dl-btn:hover { background: var(--primary-dark); box-shadow: 0 6px 15px rgba(99,102,241,0.4); }
-
-        /* COMMENTS */
-        .comments-section { margin-top: 6px; padding-top: 8px; border-top: 1px dashed var(--border); }
-        .comments-section .comment { font-size: 0.72em; padding: 4px 0; color: var(--text-secondary); display: flex; gap: 6px; }
-        .comments-section .comment strong { color: var(--primary); }
-        .comment-form { display: flex; gap: 4px; margin-top: 4px; }
-        .comment-form input { flex: 1; padding: 5px 8px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 0.7em; }
-        .comment-form button { padding: 5px 10px; background: var(--primary); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.7em; font-weight: 700; }
 
         .empty-state { grid-column: 1/-1; text-align: center; padding: 50px; background: var(--surface); border-radius: var(--radius); border: 2px dashed var(--border); }
 
@@ -155,10 +140,6 @@
         .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.8em; flex-wrap: wrap; gap: 4px; }
         .admin-stats { display: flex; gap: 8px; font-size: 0.7em; color: var(--text-muted); }
 
-        /* CONTACT BUTTON */
-        .contact-float { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: var(--success); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3em; cursor: pointer; z-index: 50; box-shadow: 0 8px 25px rgba(16,185,129,0.4); transition: var(--transition); }
-        .contact-float:hover { transform: scale(1.1); }
-
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1e293b; color: #fff; padding: 10px 18px; border-radius: 12px; font-weight: 700; font-size: 0.8em; z-index: 2000; transition: transform 0.3s; }
         .toast.show { transform: translateX(-50%) translateY(0); }
         .toast.success { background: #059669; }
@@ -173,7 +154,6 @@
             .grades-grid { grid-template-columns: repeat(2, 1fr); }
             .files-grid { grid-template-columns: 1fr; }
             .stat-card { padding: 10px 12px; min-width: 70px; }
-            .stat-card .stat-info strong { font-size: 0.9em; }
         }
         @media (prefers-color-scheme: dark) {
             :root { --bg: #0f172a; --surface: #1e293b; --surface-alt: #273548; --text: #f1f5f9; --text-secondary: #cbd5e1; --text-muted: #94a3b8; --border: #334155; }
@@ -193,19 +173,18 @@
     </div>
 
     <div class="main-app" id="mainApp">
-        <div class="new-files-bar" id="newFilesBar" onclick="location.reload()">
-            🆕 توجد ملفات جديدة! اضغط للتحديث
-        </div>
-
         <nav class="navbar">
             <div class="navbar-inner">
-                <div class="nav-brand" onclick="location.reload()">
+                <div class="nav-brand" onclick="goHome()">
                     <div class="nav-logo"><i class="fas fa-graduation-cap"></i></div>
                     <div class="nav-brand-text"><h3>مكتبة علوش</h3></div>
                 </div>
                 <div style="display:flex;gap:4px;">
+                    <button class="nav-btn" id="backBtn" onclick="goBack()" style="display:none;" title="رجوع">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
                     <button class="nav-btn" onclick="openSearch()"><i class="fas fa-search"></i></button>
-                    <button class="nav-btn" id="secretBtn"><i class="fas fa-cog"></i><span class="notif-dot" id="notifDot"></span></button>
+                    <button class="nav-btn" id="secretBtn"><i class="fas fa-cog"></i></button>
                 </div>
             </div>
         </nav>
@@ -235,7 +214,6 @@
 
         <div class="subjects-panel" id="subjectsPanel">
             <div class="subjects-inner">
-                <button class="back-btn" onclick="resetGrade()"><i class="fas fa-arrow-right"></i> الرجوع</button>
                 <h3 id="subjectsTitle">المواد</h3>
                 <div class="subjects-grid" id="subjectsGrid"></div>
             </div>
@@ -245,7 +223,7 @@
             <div class="files-header">
                 <h2 id="filesTitle">📂 جميع الملفات</h2>
                 <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <button class="sort-btn" onclick="sortFiles('newest')">🕐 الأحدث</button>
+                    <button class="sort-btn active" onclick="sortFiles('newest')">🕐 الأحدث</button>
                     <button class="sort-btn" onclick="sortFiles('downloads')">⬇️ تحميلاً</button>
                     <button class="sort-btn" onclick="sortFiles('views')">👁️ مشاهدة</button>
                     <button class="sort-btn" onclick="sortFiles('rating')">⭐ تقييماً</button>
@@ -257,12 +235,6 @@
         <div class="footer">© 2024 مكتبة علوش التعليمية - جميع الحقوق محفوظة</div>
     </div>
 
-    <!-- CONTACT FLOAT BUTTON -->
-    <div class="contact-float" onclick="openContact()" title="تواصل معنا">
-        <i class="fas fa-envelope"></i>
-    </div>
-
-    <!-- ADMIN MODAL -->
     <div class="modal-overlay" id="adminModal">
         <div class="modal">
             <h3>🔐 لوحة التحكم</h3>
@@ -287,28 +259,12 @@
                     <strong>الملفات والإحصائيات:</strong>
                     <div id="adminList"></div>
                 </div>
-                <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
-                    <strong>📩 رسائل الزوار:</strong>
-                    <div id="messagesList"></div>
-                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- CONTACT MODAL -->
-    <div class="modal-overlay" id="contactModal">
-        <div class="modal">
-            <h3>📩 تواصل معنا</h3>
-            <div class="form-group"><label>👤 اسمك</label><input type="text" id="contactName"></div>
-            <div class="form-group"><label>💬 رسالتك</label><textarea id="contactMsg" rows="3" placeholder="اكتب رسالتك هنا..."></textarea></div>
-            <button class="btn btn-primary" onclick="sendMessage()"><i class="fas fa-paper-plane"></i> إرسال</button>
-            <button class="btn btn-outline" onclick="closeContact()">إلغاء</button>
         </div>
     </div>
 
     <div class="toast" id="toast"></div>
 
-    <!-- FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script>
@@ -334,20 +290,60 @@
         };
         const ADMIN_PASS = 'admin123';
         let allFiles = [], selGrade = null, selSubject = null, isAdmin = false, currentSort = 'newest';
+        let navHistory = []; // للرجوع الذكي
 
+        // ============ NAVIGATION HISTORY ============
+        function pushNav(state) {
+            navHistory.push(state);
+            updateBackButton();
+        }
+        function goBack() {
+            if (navHistory.length > 0) {
+                const prev = navHistory.pop();
+                selGrade = prev.grade;
+                selSubject = prev.subject;
+                renderGrades();
+                renderSubjects();
+                renderFiles();
+                updateBackButton();
+                updateActiveSortBtn();
+            }
+        }
+        function goHome() {
+            selGrade = null;
+            selSubject = null;
+            navHistory = [];
+            document.getElementById('subjectsPanel').classList.remove('show');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchOverlay').classList.remove('show');
+            document.body.style.overflow = '';
+            renderGrades();
+            renderFiles();
+            updateBackButton();
+            updateActiveSortBtn();
+        }
+        function updateBackButton() {
+            const btn = document.getElementById('backBtn');
+            btn.style.display = navHistory.length > 0 ? 'flex' : 'none';
+        }
+
+        // ============ LOAD ============
         async function loadFiles() {
             try { const snap = await db.collection('files').orderBy('createdAt','desc').get(); allFiles = snap.docs.map(d => ({ id: d.id, ...d.data() })); } catch(e) { allFiles = []; }
         }
         function dl(url) { const m = url.match(/\/d\/([^\/]+)/) || url.match(/id=([^&]+)/); return m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : url; }
         function toast(m, t='success') { const el = document.getElementById('toast'); el.innerHTML = m; el.className = `toast ${t} show`; clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2500); }
 
-        // ============ VISITOR COUNTER ============
+        // ============ VISITOR COUNTER (باستخدام localStorage لمنع التكرار) ============
         async function incrementVisitors() {
+            const visited = localStorage.getItem('aloush_visited');
+            if (visited) return; // زار من قبل، لا تزيد
             try {
                 const ref = db.collection('stats').doc('visitors');
                 const doc = await ref.get();
                 if (doc.exists) await ref.update({ count: firebase.firestore.FieldValue.increment(1) });
                 else await ref.set({ count: 1 });
+                localStorage.setItem('aloush_visited', '1');
                 updateVisitorCount();
             } catch(e) {}
         }
@@ -358,12 +354,25 @@
             } catch(e) {}
         }
 
-        // ============ STATS ============
-        async function incrementStat(id, field) {
+        // ============ STATS (بدون زيادة المشاهدات عند التقييم) ============
+        async function incrementDownload(id) {
             try {
                 const ref = db.collection('files').doc(id);
-                const doc = await ref.get();
-                if (doc.exists) { const data = doc.data(); const current = data[field] || 0; await ref.update({ [field]: current + 1 }); }
+                await ref.update({ downloads: firebase.firestore.FieldValue.increment(1) });
+                await loadFiles();
+                renderFiles();
+            } catch(e) {}
+        }
+        async function incrementView(id) {
+            // منع زيادة المشاهدة لنفس المستخدم في نفس الجلسة
+            const viewed = sessionStorage.getItem('viewed_' + id);
+            if (viewed) return;
+            try {
+                const ref = db.collection('files').doc(id);
+                await ref.update({ views: firebase.firestore.FieldValue.increment(1) });
+                sessionStorage.setItem('viewed_' + id, '1');
+                await loadFiles();
+                renderFiles();
             } catch(e) {}
         }
         function updateHeroStats() {
@@ -374,49 +383,41 @@
             document.getElementById('heroViews').textContent = totalViews;
         }
 
-        // ============ RATING ============
+        // ============ RATING (بدون زيادة المشاهدات) ============
         async function rateFile(id, rating) {
             try {
                 const ref = db.collection('files').doc(id);
                 const doc = await ref.get();
                 if (doc.exists) {
                     const data = doc.data();
-                    const currentRatings = data.ratingCount || 0;
-                    const currentTotal = data.ratingTotal || 0;
                     await ref.update({
-                        ratingCount: currentRatings + 1,
-                        ratingTotal: currentTotal + rating
+                        ratingCount: (data.ratingCount || 0) + 1,
+                        ratingTotal: (data.ratingTotal || 0) + rating
                     });
                     await loadFiles();
                     renderFiles();
+                    toast('⭐ شكراً لتقييمك!');
                 }
-            } catch(e) { toast('❌ خطأ في التقييم','error'); }
+            } catch(e) { toast('❌ خطأ','error'); }
         }
         function getAvgRating(f) {
             if (!f.ratingCount || f.ratingCount === 0) return 0;
             return (f.ratingTotal / f.ratingCount).toFixed(1);
         }
 
-        // ============ COMMENTS ============
-        async function addComment(fileId, name, text) {
-            if (!name || !text) return toast('❌ املأ الاسم والتعليق','error');
-            try {
-                await db.collection('comments').add({
-                    fileId, name, text,
-                    createdAt: Date.now()
-                });
-                await loadFiles();
-                renderFiles();
-                toast('✅ تم إضافة التعليق');
-            } catch(e) { toast('❌ خطأ','error'); }
-        }
-
         // ============ RENDER ============
         function sortFiles(type) {
             currentSort = type;
-            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+            updateActiveSortBtn();
             renderFiles();
+        }
+        function updateActiveSortBtn() {
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            const btns = document.querySelectorAll('.sort-btn');
+            if (currentSort === 'newest') btns[0]?.classList.add('active');
+            else if (currentSort === 'downloads') btns[1]?.classList.add('active');
+            else if (currentSort === 'views') btns[2]?.classList.add('active');
+            else if (currentSort === 'rating') btns[3]?.classList.add('active');
         }
 
         function renderGrades() {
@@ -425,8 +426,23 @@
                 return `<div class="grade-card ${selGrade===k?'active':''}" onclick="pickGrade('${k}')"><span class="icon"><i class="fas ${g.icon}"></i></span><h3>${g.name}</h3><span class="cnt">${cnt} ملف</span></div>`;
             }).join('');
         }
-        function pickGrade(k) { selGrade = (selGrade===k) ? null : k; selSubject = null; renderGrades(); renderSubjects(); renderFiles(); }
-        function resetGrade() { selGrade = null; selSubject = null; document.getElementById('subjectsPanel').classList.remove('show'); renderGrades(); renderFiles(); }
+        function pickGrade(k) {
+            pushNav({ grade: selGrade, subject: selSubject });
+            selGrade = (selGrade===k) ? null : k;
+            selSubject = null;
+            renderGrades();
+            renderSubjects();
+            renderFiles();
+        }
+        function resetGrade() {
+            pushNav({ grade: selGrade, subject: selSubject });
+            selGrade = null;
+            selSubject = null;
+            document.getElementById('subjectsPanel').classList.remove('show');
+            renderGrades();
+            renderFiles();
+        }
+
         function renderSubjects() {
             const panel = document.getElementById('subjectsPanel');
             if (!selGrade || !GRADES[selGrade]) { panel.classList.remove('show'); return; }
@@ -437,16 +453,14 @@
                 return `<div class="subj-chip ${selSubject===s?'active':''}" onclick="pickSubject('${s}')">${s} ${cnt>0?'('+cnt+')':''}</div>`;
             }).join('');
         }
-        function pickSubject(s) { selSubject = (selSubject===s) ? null : s; renderSubjects(); renderFiles(); }
-
-        async function loadComments(fileId) {
-            try {
-                const snap = await db.collection('comments').where('fileId','==',fileId).orderBy('createdAt','desc').limit(3).get();
-                return snap.docs.map(d => d.data());
-            } catch { return []; }
+        function pickSubject(s) {
+            pushNav({ grade: selGrade, subject: selSubject });
+            selSubject = (selSubject===s) ? null : s;
+            renderSubjects();
+            renderFiles();
         }
 
-        async function renderFiles() {
+        function renderFiles() {
             const search = (document.getElementById('searchInput')?.value||'').trim().toLowerCase();
             let f = [...allFiles];
             if (selGrade) f = f.filter(x => x.grade === selGrade);
@@ -464,18 +478,15 @@
             const grid = document.getElementById('filesGrid');
             if (!f.length) { grid.innerHTML = '<div class="empty-state"><h3>📭 لا ملفات</h3></div>'; return; }
 
-            const htmlPromises = f.map(async x => {
+            grid.innerHTML = f.map(x => {
                 const gn = x.grade && GRADES[x.grade] ? GRADES[x.grade].name : '';
                 const avgRating = getAvgRating(x);
                 const starsHtml = [1,2,3,4,5].map(s => {
                     const filled = s <= Math.round(avgRating);
-                    return `<i class="fas fa-star star ${filled ? 'active' : 'inactive'}" onclick="rateFile('${x.id}',${s});setTimeout(()=>loadFiles().then(()=>renderFiles()),500);" title="قيّم ${s} نجوم"></i>`;
+                    return `<i class="fas fa-star star ${filled ? 'active' : 'inactive'}" onclick="event.stopPropagation();rateFile('${x.id}',${s});" title="قيّم ${s} نجوم"></i>`;
                 }).join('');
 
-                const comments = await loadComments(x.id);
-                const commentsHtml = comments.map(c => `<div class="comment"><strong>${c.name}:</strong> ${c.text}</div>`).join('');
-
-                return `<div class="file-card" onmouseenter="incrementStat('${x.id}','views');setTimeout(()=>loadFiles().then(()=>renderFiles()),500);">
+                return `<div class="file-card" onmouseenter="incrementView('${x.id}')">
                     <div class="top"><div class="pdf-icon"><i class="fas fa-file-pdf"></i></div><div class="info"><h3>${x.name}</h3><p class="specs">${x.specs||''}</p></div></div>
                     <div class="badges">${gn?`<span class="badge badge-grade">🎓 ${gn}</span>`:''}${x.subject?`<span class="badge badge-subject">📖 ${x.subject}</span>`:''}</div>
                     <div class="stars-row">
@@ -489,40 +500,18 @@
                     </div>
                     <div class="bottom">
                         <span></span>
-                        <a href="${dl(x.link)}" target="_blank" class="dl-btn" onclick="incrementStat('${x.id}','downloads');setTimeout(()=>loadFiles().then(()=>renderFiles()),500);"><i class="fas fa-download"></i> تحميل</a>
-                    </div>
-                    ${commentsHtml ? `<div class="comments-section">${commentsHtml}</div>` : ''}
-                    <div class="comment-form">
-                        <input type="text" placeholder="اسمك" id="cname-${x.id}">
-                        <input type="text" placeholder="تعليق..." id="ctext-${x.id}">
-                        <button onclick="addComment('${x.id}',document.getElementById('cname-${x.id}').value,document.getElementById('ctext-${x.id}').value)">💬</button>
+                        <a href="${dl(x.link)}" target="_blank" class="dl-btn" onclick="incrementDownload('${x.id}')"><i class="fas fa-download"></i> تحميل</a>
                     </div>
                 </div>`;
-            });
-
-            grid.innerHTML = (await Promise.all(htmlPromises)).join('');
+            }).join('');
+            updateBackButton();
         }
 
+        // ============ SEARCH ============
         function openSearch() { document.getElementById('searchOverlay').classList.add('show'); document.getElementById('searchInput').focus(); }
         function closeSearch() { document.getElementById('searchOverlay').classList.remove('show'); document.getElementById('searchInput').value=''; renderFiles(); }
         document.getElementById('searchOverlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeSearch(); });
-        document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeSearch(); closeAdmin(); closeContact(); } });
-
-        // ============ CONTACT ============
-        function openContact() { document.getElementById('contactModal').classList.add('show'); }
-        function closeContact() { document.getElementById('contactModal').classList.remove('show'); }
-        async function sendMessage() {
-            const name = document.getElementById('contactName').value.trim();
-            const msg = document.getElementById('contactMsg').value.trim();
-            if (!name || !msg) return toast('❌ املأ جميع الحقول','error');
-            try {
-                await db.collection('messages').add({ name, msg, createdAt: Date.now(), read: false });
-                document.getElementById('contactName').value = '';
-                document.getElementById('contactMsg').value = '';
-                closeContact();
-                toast('✅ تم إرسال رسالتك بنجاح');
-            } catch(e) { toast('❌ خطأ','error'); }
-        }
+        document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeSearch(); closeAdmin(); } });
 
         // ============ ADMIN ============
         function openAdmin() {
@@ -545,7 +534,6 @@
                 document.getElementById('loginSec').style.display='none';
                 document.getElementById('adminPanel').style.display='block';
                 renderAdminList();
-                renderMessages();
                 toast('✅ تم الدخول');
             }else{toast('❌ خطأ','error');}
         }
@@ -569,8 +557,6 @@
                 document.getElementById('fileGrade').value=''; document.getElementById('fileSubject').value='';
                 await loadFiles();
                 renderFiles(); renderGrades(); if(selGrade) renderSubjects(); renderAdminList();
-                document.getElementById('notifDot').style.display = 'block';
-                document.getElementById('newFilesBar').style.display = 'block';
                 toast('✅ تمت الإضافة ويظهر للجميع!');
             } catch(e) { toast('❌ خطأ','error'); }
         }
@@ -587,16 +573,6 @@
             c.innerHTML=allFiles.map(x=>`<div class="admin-item"><span>📄 ${x.name}</span><span class="admin-stats">⭐${getAvgRating(x)} | 👁️${x.views||0} | ⬇️${x.downloads||0}</span><button class="btn-danger" onclick="delFile('${x.id}')">🗑️</button></div>`).join('');
         }
 
-        async function renderMessages() {
-            const c = document.getElementById('messagesList');
-            try {
-                const snap = await db.collection('messages').orderBy('createdAt','desc').limit(10).get();
-                const msgs = snap.docs.map(d => d.data());
-                if (!msgs.length) { c.innerHTML = '<p style="font-size:0.8em;">لا رسائل</p>'; return; }
-                c.innerHTML = msgs.map(m => `<div style="padding:4px 0;border-bottom:1px solid var(--border);font-size:0.75em;"><strong>${m.name}:</strong> ${m.msg}</div>`).join('');
-            } catch(e) { c.innerHTML = '<p style="font-size:0.8em;">خطأ في التحميل</p>'; }
-        }
-
         // SECRET
         let pt;
         document.getElementById('secretBtn').addEventListener('mousedown',()=>{pt=setTimeout(openAdmin,2000);});
@@ -604,14 +580,15 @@
         document.getElementById('secretBtn').addEventListener('touchstart',()=>{pt=setTimeout(openAdmin,2000);});
         document.getElementById('secretBtn').addEventListener('touchend',()=>clearTimeout(pt));
         document.getElementById('adminModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeAdmin();});
-        document.getElementById('contactModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeContact();});
 
+        // ============ INIT ============
         async function init() {
             await incrementVisitors();
             await updateVisitorCount();
             await loadFiles();
             renderGrades();
             renderFiles();
+            updateActiveSortBtn();
             setTimeout(()=>{
                 document.getElementById('splash').classList.add('hidden');
                 document.getElementById('mainApp').classList.add('visible');
