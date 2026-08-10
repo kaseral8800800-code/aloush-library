@@ -6,7 +6,7 @@
     "grade": "grade7",
     "subject": "الرياضيات",
     "category": "كتاب",
-    "link": "https://drive.google.com/file/d/XXXXXXXXX/view",
+    "link": "https://drive.google.com/file/d/13HddBq2Fq5xMngM1byErqcdj3g48HF2K/view?usp=drivesdk",
     "date": "2024-01-01"
   },
   {
@@ -48,5 +48,16 @@
     "category": "دليل",
     "link": "https://drive.google.com/file/d/BBBBBBBBB/view",
     "date": "2024-01-05"
-  }
+  },
+  {
+  "id": "1786396004053",
+  "name": "علوم",
+  "specs": "نوطة علوم خوشناف",
+  "grade": "grade9",
+  "subject": "العلوم",
+  "category": "نوطة",
+  "link": "https://drive.google.com/file/d/13HddBq2Fq5xMngM1byErqcdj3g48HF2K/view?usp=drivesdk",
+  "date": "١١‏/٨‏/٢٠٢٦"
+}
+
 ]
