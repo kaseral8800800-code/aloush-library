@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة علوش التعليمية | Aloush Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-alt: #f1f5f9;
+            --text: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #10b981;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -2px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.06), 0 4px 6px -4px rgba(0,0,0,0.04);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+            --radius-sm: 10px;
+            --radius: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* SPLASH SCREEN */
+        .splash-screen {
+            position: fixed; inset: 0; z-index: 9999;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #1e1b4b 100%);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .splash-screen.hidden { opacity: 0; visibility: hidden; transform: scale(1.1); pointer-events: none; }
+        .splash-content { text-align: center; animation: splashPulse 2s ease-in-out infinite; }
+        @keyframes splashPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .splash-logo {
+            width: 120px; height: 120px; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 35px; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 30px; font-size: 3.5em; color: #fff; font-weight: 900;
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.5); position: relative;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .splash-logo::after { content: ''; position: absolute; width: 30px; height: 30px; background: rgba(255,255,255,0.4); border-radius: 50%; top: 15px; right: 15px; }
+        .splash-logo::before { content: ''; position: absolute; inset: -8px; border-radius: 40px; border: 3px solid rgba(99, 102, 241, 0.4); animation: borderGlow 2s ease-in-out infinite; }
+        @keyframes borderGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+        .splash-title { font-family: 'El Messiri', 'Cairo', sans-serif; font-size: 2.5em; font-weight: 700; background: linear-gradient(135deg, #f1f5f9 0%, #a5b4fc 50%, #67e8f9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .splash-subtitle { color: #94a3b8; font-size: 1em; font-weight: 500; letter-spacing: 3px; margin-bottom: 40px; }
+        .splash-loader { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 0 auto; overflow: hidden; }
+        .splash-loader-bar { height: 100%; border-radius: 10px; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent)); animation: loadingBar 2.5s ease-in-out forwards; }
+        @keyframes loadingBar { 0% { width: 0%; } 50% { width: 70%; } 100% { width: 100%; } }
+        .splash-dots { display: flex; gap: 6px; justify-content: center; margin-top: 20px; }
+        .splash-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary-light); animation: dotBounce 1.4s ease-in-out infinite; }
+        .splash-dot:nth-child(2) { animation-delay: 0.2s; } .splash-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotBounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1.2); opacity: 1; } }
+
+        /* MAIN APP */
+        .main-app { opacity: 0; transition: opacity 0.6s ease; }
+        .main-app.visible { opacity: 1; }
+
+        /* NAVBAR */
+        .navbar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid var(--border); }
+        .navbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); cursor: pointer; }
+        .nav-logo { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2em; font-weight: 900; flex-shrink: 0; box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3); }
+        .nav-brand-text h3 { font-size: 1.1em; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: var(--text); }
+        .nav-brand-text span { font-size: 0.65em; color: var(--text-muted); font-weight: 500; letter-spacing: 1.5px; }
+        .nav-actions { display: flex; align-items: center; gap: 6px; }
+        .nav-btn { width: 38px; height: 38px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; font-size: 1em; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .nav-btn:hover { background: var(--surface-alt); border-color: #cbd5e1; color: var(--text); transform: translateY(-1px); }
+        .nav-btn:active { transform: scale(0.95); }
+
+        /* HERO */
+        .hero { max-width: 1200px; margin: 0 auto; padding: 30px 20px 10px; text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #ede9fe, #e0e7ff); padding: 8px 20px; border-radius: 30px; font-size: 0.85em; font-weight: 700; color: var(--primary-dark); margin-bottom: 20px; border: 1px solid #c7d2fe; }
+        .hero-badge .live-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
+        .hero h1 { font-size: clamp(1.6em, 4vw, 2.4em); font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px; color: var(--text); }
+        .hero .subtitle { color: var(--text-muted); font-size: 0.95em; font-weight: 500; margin-bottom: 20px; }
+        .stats-mini { display: inline-flex; gap: 4px; flex-wrap: wrap; justify-content: center; background: var(--surface); padding: 6px; border-radius: 40px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+        .stat-pill { padding: 8px 16px; border-radius: 30px; font-size: 0.82em; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+        .stat-pill .val { background: var(--primary); color: #fff; padding: 2px 10px; border-radius: 20px; font-size: 0.9em; }
+        .stat-divider { width: 1px; background: var(--border); margin: 4px 2px; }
+
+        /* SEARCH OVERLAY */
+        .search-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 300; display: none; align-items: flex-start; justify-content: center; padding: 80px 20px 20px; }
+        .search-overlay.show { display: flex; }
+        .search-box { background: var(--surface); border-radius: var(--radius-lg); padding: 6px; display: flex; align-items: center; width: 100%; max-width: 550px; box-shadow: var(--shadow-xl); border: 2px solid var(--border); }
+        .search-box input { flex: 1; border: none; padding: 14px 16px; font-size: 1.05em; font-family: inherit; outline: none; background: transparent; color: var(--text); }
+        .search-box button { width: 40px; height: 40px; border-radius: 12px; border: none; background: var(--surface-alt); cursor: pointer; font-size: 1.1em; color: var(--text-secondary); transition: var(--transition); flex-shrink: 0; }
+        .search-box button:hover { background: #e2e8f0; }
+
+        /* GRADES */
+        .grades-section { max-width: 1200px; margin: 0 auto 20px; padding: 0 20px; }
+        .section-label { font-size: 0.8em; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .grades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+        .grade-card { background: var(--surface); border-radius: var(--radius); padding: 16px 12px; text-align: center; cursor: pointer; transition: var(--transition); border: 2px solid transparent; box-shadow: var(--shadow-sm); position: relative; }
+        .grade-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
+        .grade-card.active { background: linear-gradient(135deg, #ede9fe, #e0e7ff); border-color: var(--primary); box-shadow: var(--shadow-md); }
+        .grade-card .emoji { font-size: 2em; display: block; margin-bottom: 8px; }
+        .grade-card h3 { font-size: 0.9em; font-weight: 800; margin-bottom: 2px; }
+        .grade-card .count { font-size: 0.72em; color: var(--text-muted); font-weight: 600; }
+
+        /* SUBJECTS */
+        .subjects-panel { max-width: 1200px; margin: 0 auto 16px; padding: 0 20px; display: none; animation: slideIn 0.3s ease; }
+        .subjects-panel.show { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .subjects-inner { background: var(--surface); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .subjects-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+        .subjects-header h3 { font-size: 1em; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .back-btn { padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; font-family: inherit; font-weight: 700; font-size: 0.82em; color: var(--text-secondary); transition: var(--transition); display: flex; align-items: center; gap: 5px; }
+        .back-btn:hover { background: var(--surface-alt); border-color: #cbd5e1; }
+        .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+        .subject-chip { padding: 11px 14px; background: var(--surface-alt); border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); font-weight: 600; font-size: 0.85em; text-align: center; border: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 6px; color: var(--text-secondary); }
+        .subject-chip:hover { background: #ede9fe; border-color: var(--primary-light); color: var(--primary-dark); transform: translateY(-2px); }
+        .subject-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+
+        /* FILES */
+        .files-section { max-width: 1200px; margin: 0 auto; padding: 0 20px 80px; }
+        .files-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+        .files-header h2 { font-size: 1.2em; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .active-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .active-tag { padding: 5px 12px; background: #ede9fe; border-radius: 20px; font-size: 0.75em; font-weight: 700; color: var(--primary-dark); cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 4px; }
+        .active-tag:hover { background: #fecaca; color: var(--danger); }
+        .files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+        .file-card { background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; animation: cardUp 0.4s ease forwards; opacity: 0; }
+        @keyframes cardUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .file-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #cbd5e1; }
+        .file-card .top-row { display: flex; gap: 12px; align-items: flex-start; }
+        .file-card .pdf-icon { width: 44px; height: 44px; border-radius: 12px; background: #fef2f2; display: flex; align-items: center; justify-content: center; font-size: 1.3em; color: #dc2626; flex-shrink: 0; }
+        .file-card .info { flex: 1; min-width: 0; }
+        .file-card .info h3 { font-size: 0.95em; font-weight: 700; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .file-card .info .specs { color: var(--text-muted); font-size: 0.8em; margin-top: 3px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .file-card .badges { display: flex; gap: 5px; flex-wrap: wrap; }
+        .badge { padding: 3px 9px; border-radius: 5px; font-size: 0.7em; font-weight: 700; }
+        .badge-grade { background: #ede9fe; color: #5b21b6; }
+        .badge-subject { background: #fef3c7; color: #92400e; }
+        .badge-cat { background: #f1f5f9; color: #475569; }
+        .file-card .bottom-row { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); }
+        .file-card .meta-left { display: flex; align-items: center; gap: 10px; }
+        .file-card .date { font-size: 0.73em; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+        .file-card .download-count { font-size: 0.73em; color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 3px; background: #ede9fe; padding: 3px 10px; border-radius: 15px; }
+        .file-card .dl-btn { display: flex; align-items: center; gap: 6px; padding: 9px 16px; background: var(--primary); color: #fff; border: none; border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 0.85em; cursor: pointer; text-decoration: none; transition: var(--transition); }
+        .file-card .dl-btn:hover { background: var(--primary-dark); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
+        .file-card .dl-btn:active { transform: scale(0.96); }
+
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: var(--surface); border-radius: var(--radius-xl); border: 2px dashed var(--border); }
+        .empty-state .empty-icon { font-size: 4em; opacity: 0.4; margin-bottom: 12px; }
+        .empty-state h3 { font-weight: 800; margin-bottom: 4px; }
+        .empty-state p { color: var(--text-muted); font-size: 0.9em; }
+
+        /* ADMIN MODAL */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: var(--surface); border-radius: var(--radius-xl); width: 100%; max-width: 500px; max-height: 88vh; overflow-y: auto; box-shadow: var(--shadow-xl); animation: popModal 0.3s ease; }
+        @keyframes popModal { from { transform: translateY(30px) scale(0.96); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+        .modal-header { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--surface); border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+        .modal-header h3 { font-weight: 800; font-size: 1.1em; }
+        .modal-close { width: 34px; height: 34px; border-radius: 50%; border: none; background: var(--surface-alt); cursor: pointer; font-size: 1em; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: #fee2e2; color: var(--danger); }
+        .modal-body { padding: 20px; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-weight: 700; font-size: 0.8em; margin-bottom: 4px; color: var(--text-secondary); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.9em; transition: var(--transition); background: var(--surface-alt); color: var(--text); resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(99,102,241,0.08); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { padding: 11px 20px; border-radius: var(--radius-sm); font-family: inherit; font-weight: 700; font-size: 0.9em; cursor: pointer; border: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; justify-content: center; }
+        .btn-primary { background: var(--primary); color: #fff; width: 100%; }
+        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+        .btn-outline:hover { background: var(--surface-alt); }
+        .btn-sm { padding: 5px 12px; font-size: 0.75em; border-radius: 7px; }
+        .btn-danger { background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
+        .admin-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: var(--surface-alt); border-radius: var(--radius-sm); margin-bottom: 6px; gap: 10px; }
+        .admin-item .info { flex: 1; min-width: 0; }
+        .admin-item .info strong { display: block; font-size: 0.85em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .admin-item .info small { color: var(--text-muted); font-size: 0.7em; }
+        .divider { margin: 18px 0; border-top: 1px solid var(--border); padding-top: 14px; font-weight: 800; font-size: 0.85em; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(120px); background: #1e293b; color: #fff; padding: 12px 22px; border-radius: 12px; font-weight: 700; font-size: 0.85em; z-index: 2000; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: var(--shadow-xl); display: flex; align-items: center; gap: 8px; }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.success { background: #059669; }
+        .toast.error { background: #dc2626; }
+        .footer { text-align: center; padding: 20px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8em; font-weight: 500; }
+        .footer .brand { font-weight: 800; color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .splash-logo { width: 90px; height: 90px; font-size: 2.5em; border-radius: 28px; }
+            .splash-title { font-size: 1.8em; }
+            .navbar-inner { height: 52px; padding: 0 14px; }
+            .nav-logo { width: 34px; height: 34px; font-size: 1em; }
+            .hero { padding: 20px 14px 8px; }
+            .hero h1 { font-size: 1.4em; }
+            .grades-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .subjects-grid { grid-template-columns: repeat(2, 1fr); }
+            .files-grid { grid-template-columns: 1fr; gap: 10px; }
+            .form-row { grid-template-columns: 1fr; }
+            .modal { border-radius: var(--radius-lg) var(--radius-lg) 0 0; position: fixed; bottom: 0; left: 0; right: 0; max-width: 100%; animation: modalUp 0.3s ease; }
+            @keyframes modalUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg: #0f172a; --surface: #1e293b; --surface-alt: #273548; --text: #f1f5f9; --text-secondary: #cbd5e1; --text-muted: #94a3b8; --border: #334155; }
+            .navbar { background: rgba(15,23,42,0.85); }
+            .grade-card.active { background: linear-gradient(135deg, #1e1b4b, #172554); }
+            .badge-cat { background: #334155; }
+            .form-group input, .form-group textarea, .form-group select { background: #273548; color: #f1f5f9; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-logo"><i class="fas fa-book-open"></i></div>
+            <h1 class="splash-title">مكتبة علوش التعليمية</h1>
+            <p class="splash-subtitle">ALOUSH LIBRARY</p>
+            <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+            <div class="splash-dots"><div class="splash-dot"></div><div class="splash-dot"></div><div class="splash-dot"></div></div>
+        </div>
+    </div>
+
+    <div class="main-app" id="mainApp">
+        <nav class="navbar" id="navbar">
+            <div class="navbar-inner">
+                <div class="nav-brand" onclick="resetAll()">
+                    <div class="nav-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="nav-brand-text"><h3>مكتبة علوش</h3><span>ALOUSH LIBRARY</span></div>
+                </div>
+                <div class="nav-actions">
+                    <button class="nav-btn" id="searchTriggerBtn" title="بحث (Ctrl+K)"><i class="fas fa-search"></i></button>
+                    <button class="nav-btn" id="secretBtn" title="الإعدادات"><i class="fas fa-cog"></i></button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-badge"><span class="live-dot"></span> <i class="fas fa-sync-alt"></i> مكتبة محدثة باستمرار</div>
+            <h1><i class="fas fa-book-open"></i> مكتبة علوش التعليمية</h1>
+            <p class="subtitle">اختر الصف الدراسي ثم المادة لعرض الملفات</p>
+            <div class="stats-mini">
+                <div class="stat-pill"><i class="fas fa-file-pdf"></i> الملفات <span class="val" id="heroTotal">0</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat-pill"><i class="fas fa-calendar-check"></i> اليوم <span class="val" id="heroToday">0</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat-pill"><i class="fas fa-download"></i> التحميلات <span class="val" id="heroDownloads">0</span></div>
+            </div>
+        </div>
+
+        <div class="search-overlay" id="searchOverlay">
+            <div class="search-box">
+                <i class="fas fa-search" style="padding:0 12px;color:var(--text-muted);"></i>
+                <input type="text" id="searchInput" placeholder="ابحث عن ملف..." oninput="renderFiles()" autofocus>
+                <button onclick="closeSearch()"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <div class="grades-section">
+            <div class="section-label"><i class="fas fa-layer-group"></i> الصفوف الدراسية</div>
+            <div class="grades-grid" id="gradesGrid"></div>
+        </div>
+
+        <div class="subjects-panel" id="subjectsPanel">
+            <div class="subjects-inner">
+                <div class="subjects-header">
+                    <h3 id="subjectsTitle"><i class="fas fa-list-ul"></i> المواد</h3>
+                    <button class="back-btn" onclick="resetGrade()"><i class="fas fa-arrow-right"></i> كل الصفوف</button>
+                </div>
+                <div class="subjects-grid" id="subjectsGrid"></div>
+            </div>
+        </div>
+
+        <div class="files-section">
+            <div class="files-header">
+                <h2 id="filesTitle"><i class="fas fa-folder-open" style="color:var(--primary);"></i> جميع الملفات</h2>
+                <div class="active-tags" id="activeTags"></div>
+            </div>
+            <div class="files-grid" id="filesGrid">
+                <div class="empty-state"><div class="empty-icon"><i class="fas fa-inbox"></i></div><h3>اختر الصف ثم المادة</h3><p>الملفات ستظهر هنا حسب اختيارك</p></div>
+            </div>
+        </div>
+
+        <div class="footer"><p><i class="far fa-copyright"></i> 2024 <span class="brand">مكتبة علوش التعليمية</span> - جميع الحقوق محفوظة</p></div>
+    </div>
+
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal">
+            <div class="modal-header"><h3><i class="fas fa-shield-alt"></i> لوحة التحكم</h3><button class="modal-close" onclick="closeAdmin()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div id="loginSection">
+                    <p style="color:var(--text-secondary);margin-bottom:14px;font-weight:500;font-size:0.9em;"><i class="fas fa-info-circle"></i> أدخل كلمة المرور للمتابعة</p>
+                    <div class="form-group"><label><i class="fas fa-lock"></i> كلمة المرور</label><input type="password" id="adminPass" placeholder="********" onkeypress="if(event.key==='Enter')adminLogin()"></div>
+                    <button class="btn btn-primary" onclick="adminLogin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
+                    <button class="btn btn-outline" style="width:100%;margin-top:6px;" onclick="closeAdmin()"><i class="fas fa-times-circle"></i> إلغاء</button>
+                </div>
+                <div id="adminPanel" style="display:none;">
+                    <div class="form-group"><label><i class="fas fa-file-signature"></i> اسم الملف</label><input type="text" id="fileName" placeholder="اسم الكتاب أو الملزمة"></div>
+                    <div class="form-group"><label><i class="fas fa-align-left"></i> الوصف</label><textarea id="fileSpecs" placeholder="عدد الصفحات | الحجم | السنة..."></textarea></div>
+                    <div class="form-row">
+                        <div class="form-group"><label><i class="fas fa-graduation-cap"></i> الصف</label><select id="fileGrade"><option value="">اختر</option></select></div>
+                        <div class="form-group"><label><i class="fas fa-book"></i> المادة</label><select id="fileSubject"><option value="">اختر</option></select></div>
+                    </div>
+                    <div class="form-group"><label><i class="fas fa-tag"></i> تصنيف</label><input type="text" id="fileCategory" placeholder="كتاب، ملزمة، ملخص..."></div>
+                    <div class="form-group"><label><i class="fab fa-google-drive"></i> رابط Google Drive</label><input type="url" id="fileLink" placeholder="https://drive.google.com/file/d/..."></div>
+                    <button class="btn btn-primary" onclick="addFile()"><i class="fas fa-plus-circle"></i> إضافة</button>
+                    <div class="divider"><i class="fas fa-list"></i> الملفات المضافة</div>
+                    <div id="adminList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('splashScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.add('visible');
+                setTimeout(() => { const s = document.getElementById('splashScreen'); if (s) s.remove(); }, 800);
+            }, 3000);
+        });
+
+        const GRADES = {
+            grade7:  { name: 'الصف السابع',   icon: 'fa-book', subjects: ['الرياضيات','اللغة العربية','اللغة الإنجليزية','العلوم','الدراسات الاجتماعية','التربية الإسلامية'] },
+            grade8:  { name: 'الصف الثامن',   icon: 'fa-book-open', subjects: ['الرياضيات','اللغة العربية','اللغة الإنجليزية','العلوم','الدراسات الاجتماعية','التربية الإسلامية','الفيزياء','الكيمياء'] },
+            grade9:  { name: 'الصف التاسع',   icon: 'fa-bookmark', subjects: ['الرياضيات','اللغة العربية','اللغة الإنجليزية','العلوم','الدراسات الاجتماعية','التربية الإسلامية','الفيزياء','الكيمياء','الأحياء'] },
+            bacLit:  { name: 'بكالوريا أدبي',  icon: 'fa-scroll', subjects: ['اللغة العربية','اللغة الإنجليزية','اللغة الفرنسية','التاريخ','الجغرافيا','الفلسفة','التربية الإسلامية','التربية الوطنية'] },
+            bacSci:  { name: 'بكالوريا علمي',  icon: 'fa-flask', subjects: ['الرياضيات','الفيزياء','الكيمياء','الأحياء','اللغة العربية','اللغة الإنجليزية','اللغة الفرنسية','التربية الإسلامية'] }
+        };
+        const SUBJECT_ICONS = {
+            'الرياضيات':'fa-calculator','اللغة العربية':'fa-language','اللغة الإنجليزية':'fa-globe','اللغة الفرنسية':'fa-globe-europe',
+            'العلوم':'fa-atom','الفيزياء':'fa-magnet','الكيمياء':'fa-vial','الأحياء':'fa-dna',
+            'الدراسات الاجتماعية':'fa-earth-africa','التاريخ':'fa-landmark','الجغرافيا':'fa-map','الفلسفة':'fa-brain',
+            'التربية الإسلامية':'fa-star-and-crescent','التربية الوطنية':'fa-flag'
+        };
+        const STORAGE_KEY = 'aloush_lib_v4';
+        const DOWNLOADS_KEY = 'aloush_downloads';
+        const ADMIN_PASS = 'admin123';
+        let selGrade = null, selSubject = null, isAdmin = false;
+
+        function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); } catch { return []; } }
+        function save(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+        function loadDownloads() { try { return JSON.parse(localStorage.getItem(DOWNLOADS_KEY)||'{}'); } catch { return {}; } }
+        function saveDownloads(d) { localStorage.setItem(DOWNLOADS_KEY, JSON.stringify(d)); }
+        function dl(url) { const m = url.match(/\/d\/([^\/]+)/) || url.match(/id=([^&]+)/); return m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : url; }
+        function esc(s) { const d = document.createElement('span'); d.textContent = s||''; return d.innerHTML; }
+        function toast(m, t='success') { const el = document.getElementById('toast'); el.innerHTML = m; el.className = `toast ${t} show`; clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2500); }
+
+        function incrementDownload(fileId) { const downloads = loadDownloads(); downloads[fileId] = (downloads[fileId] || 0) + 1; saveDownloads(downloads); renderFiles(); updateHeroStats(); }
+        function updateHeroStats() { const files = load(); const downloads = loadDownloads(); const today = new Date().toLocaleDateString('ar-SA'); document.getElementById('heroTotal').textContent = files.length; document.getElementById('heroToday').textContent = files.filter(x => x.date === today).length; let totalDl = 0; Object.values(downloads).forEach(v => totalDl += v); document.getElementById('heroDownloads').textContent = totalDl; }
+
+        function renderGrades() { const files = load(); document.getElementById('gradesGrid').innerHTML = Object.entries(GRADES).map(([k, g]) => { const cnt = files.filter(f => f.grade === k).length; return `<div class="grade-card ${selGrade===k?'active':''}" onclick="pickGrade('${k}')"><span class="emoji"><i class="fas ${g.icon}"></i></span><h3>${g.name}</h3><span class="count">${cnt} ملف</span></div>`; }).join(''); }
+        function pickGrade(k) { if (selGrade === k) { resetGrade(); return; } selGrade = k; selSubject = null; renderGrades(); renderSubjects(); renderFiles(); updateTags(); }
+        function resetGrade() { selGrade = null; selSubject = null; document.getElementById('subjectsPanel').classList.remove('show'); renderGrades(); renderFiles(); updateTags(); }
+        function resetAll() { resetGrade(); document.getElementById('searchInput').value = ''; document.getElementById('searchOverlay').classList.remove('show'); document.body.style.overflow = ''; renderFiles(); }
+
+        function renderSubjects() { const panel = document.getElementById('subjectsPanel'); const grid = document.getElementById('subjectsGrid'); const title = document.getElementById('subjectsTitle'); if (!selGrade || !GRADES[selGrade]) { panel.classList.remove('show'); return; } panel.classList.add('show'); title.innerHTML = `<i class="fas fa-list-ul"></i> مواد ${GRADES[selGrade].name}`; const files = load(); grid.innerHTML = GRADES[selGrade].subjects.map(s => { const cnt = files.filter(f => f.grade === selGrade && f.subject === s).length; const icon = SUBJECT_ICONS[s] || 'fa-book'; return `<div class="subject-chip ${selSubject===s?'active':''}" onclick="pickSubject('${esc(s)}')"><i class="fas ${icon}"></i> ${s} ${cnt>0?`<small>(${cnt})</small>`:''}</div>`; }).join(''); setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'center' }), 100); }
+        function pickSubject(s) { selSubject = selSubject === s ? null : s; renderSubjects(); renderFiles(); updateTags(); }
+
+        function renderFiles() { const files = load(); const downloads = loadDownloads(); const grid = document.getElementById('filesGrid'); const search = (document.getElementById('searchInput')?.value||'').trim().toLowerCase(); let f = files; if (selGrade) f = f.filter(x => x.grade === selGrade); if (selSubject) f = f.filter(x => x.subject === selSubject); if (search) f = f.filter(x => x.name.toLowerCase().includes(search) || x.specs.toLowerCase().includes(search) || (x.subject||'').toLowerCase().includes(search)); updateHeroStats(); document.getElementById('filesTitle').innerHTML = selSubject ? `<i class="fas fa-folder-open" style="color:var(--primary);"></i> ${selSubject}` : selGrade ? `<i class="fas fa-folder-open" style="color:var(--primary);"></i> ${GRADES[selGrade].name}` : '<i class="fas fa-folder-open" style="color:var(--primary);"></i> جميع الملفات'; if (!f.length) { grid.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="fas ${search?'fa-search':'fa-inbox'}"></i></div><h3>${search?'لا توجد نتائج':selGrade?'لا ملفات بعد':'اختر الصف ثم المادة'}</h3><p>${search?'جرب كلمات أخرى':selGrade?'ستضاف قريباً':'الملفات تظهر حسب اختيارك'}</p></div>`; return; } grid.innerHTML = f.map((x, i) => { const gn = x.grade && GRADES[x.grade] ? GRADES[x.grade].name : ''; const dlCount = downloads[x.id] || 0; return `<div class="file-card" style="animation-delay:${i*0.06}s"><div class="top-row"><div class="pdf-icon"><i class="fas fa-file-pdf"></i></div><div class="info"><h3>${esc(x.name)}</h3><p class="specs"><i class="fas fa-info-circle"></i> ${esc(x.specs)}</p></div></div><div class="badges">${gn?`<span class="badge badge-grade"><i class="fas fa-graduation-cap"></i> ${esc(gn)}</span>`:''}${x.subject?`<span class="badge badge-subject"><i class="fas ${SUBJECT_ICONS[x.subject]||'fa-book'}"></i> ${esc(x.subject)}</span>`:''}${x.category?`<span class="badge badge-cat"><i class="fas fa-tag"></i> ${esc(x.category)}</span>`:''}</div><div class="bottom-row"><div class="meta-left"><span class="date"><i class="far fa-clock"></i> ${esc(x.date||'')}</span><span class="download-count"><i class="fas fa-download"></i> ${dlCount}</span></div><a href="${dl(x.link)}" target="_blank" rel="noopener" class="dl-btn" onclick="incrementDownload('${x.id}')"><i class="fas fa-download"></i> تحميل</a></div></div>`; }).join(''); }
+
+        function updateTags() { const c = document.getElementById('activeTags'); let tags = []; if (selGrade && GRADES[selGrade]) tags.push({ label: GRADES[selGrade].name, icon: GRADES[selGrade].icon, clear: resetGrade }); if (selSubject) tags.push({ label: selSubject, icon: SUBJECT_ICONS[selSubject]||'fa-book', clear: () => { selSubject = null; renderSubjects(); renderFiles(); updateTags(); } }); c.innerHTML = tags.map(t => `<span class="active-tag" onclick="(${t.clear.toString()})()"><i class="fas ${t.icon}"></i> ${t.label} <i class="fas fa-times"></i></span>`).join(''); renderGrades(); if (selGrade) renderSubjects(); }
+
+        document.getElementById('searchTriggerBtn').addEventListener('click', () => { const ov = document.getElementById('searchOverlay'); ov.classList.add('show'); document.body.style.overflow = 'hidden'; document.getElementById('searchInput').focus(); });
+        document.getElementById('searchOverlay').addEventListener('click', function(e) { if (e.target === this) closeSearch(); });
+        function closeSearch() { document.getElementById('searchOverlay').classList.remove('show'); document.body.style.overflow = ''; document.getElementById('searchInput').value = ''; renderFiles(); }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (document.getElementById('searchOverlay').classList.contains('show')) closeSearch(); if (document.getElementById('adminModal').classList.contains('show')) closeAdmin(); } if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); document.getElementById('searchTriggerBtn').click(); } });
+
+        function openAdmin() { document.getElementById('adminModal').classList.add('show'); document.getElementById('loginSection').style.display = 'block'; document.getElementById('adminPanel').style.display = 'none'; document.getElementById('adminPass').value = ''; isAdmin = false; document.body.style.overflow = 'hidden'; const gs = document.getElementById('fileGrade'); gs.innerHTML = '<option value="">اختر</option>' + Object.entries(GRADES).map(([k,g]) => `<option value="${k}">${g.name}</option>`).join(''); gs.onchange = function() { const sj = document.getElementById('fileSubject'); sj.innerHTML = '<option value="">اختر</option>'; if (this.value && GRADES[this.value]) sj.innerHTML += GRADES[this.value].subjects.map(s => `<option value="${s}">${s}</option>`).join(''); }; }
+        function closeAdmin() { document.getElementById('adminModal').classList.remove('show'); document.body.style.overflow = ''; isAdmin = false; }
+        function adminLogin() { if (document.getElementById('adminPass').value.trim() === ADMIN_PASS) { isAdmin = true; document.getElementById('loginSection').style.display = 'none'; document.getElementById('adminPanel').style.display = 'block'; renderAdminList(); toast('<i class="fas fa-check-circle"></i> تم الدخول بنجاح'); } else { toast('<i class="fas fa-exclamation-circle"></i> كلمة مرور خاطئة', 'error'); } }
+        function addFile() { if (!isAdmin) return toast('<i class="fas fa-exclamation-triangle"></i> سجل الدخول أولاً', 'error'); const name = document.getElementById('fileName').value.trim(); const specs = document.getElementById('fileSpecs').value.trim(); const grade = document.getElementById('fileGrade').value; const subject = document.getElementById('fileSubject').value; const category = document.getElementById('fileCategory').value.trim(); const link = document.getElementById('fileLink').value.trim(); if (!name || !specs || !link) return toast('<i class="fas fa-exclamation-triangle"></i> املأ الحقول المطلوبة', 'error'); if (!link.includes('drive.google.com')) return toast('<i class="fas fa-times-circle"></i> رابط غير صحيح', 'error'); const files = load(); files.unshift({ id: Date.now().toString(), name, specs, grade, subject, category, link, date: new Date().toLocaleDateString('ar-SA') }); save(files); ['fileName','fileSpecs','fileCategory','fileLink'].forEach(id => document.getElementById(id).value = ''); document.getElementById('fileGrade').value = ''; document.getElementById('fileSubject').value = ''; renderFiles(); renderGrades(); if (selGrade) renderSubjects(); renderAdminList(); updateTags(); toast('<i class="fas fa-check-circle"></i> تمت الإضافة بنجاح'); }
+        function delFile(id) { if (!isAdmin) return; if (!confirm('متأكد من حذف هذا الملف؟')) return; save(load().filter(x => x.id !== id)); const downloads = loadDownloads(); delete downloads[id]; saveDownloads(downloads); renderFiles(); renderGrades(); if (selGrade) renderSubjects(); renderAdminList(); updateTags(); toast('<i class="fas fa-trash-alt"></i> تم الحذف'); }
+        function renderAdminList() { const files = load(); const downloads = loadDownloads(); const c = document.getElementById('adminList'); if (!files.length) { c.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:16px;font-size:0.85em;"><i class="fas fa-inbox"></i> لا توجد ملفات مضافة</p>'; return; } c.innerHTML = files.map(x => { const gn = x.grade && GRADES[x.grade] ? GRADES[x.grade].name : ''; const dlc = downloads[x.id] || 0; return `<div class="admin-item"><div class="info"><strong><i class="fas fa-file-pdf"></i> ${esc(x.name)}</strong><small>${esc(x.date)} ${gn?`· ${gn}`:''} ${x.subject?`· ${esc(x.subject)}`:''} · <i class="fas fa-download"></i> ${dlc}</small></div><button class="btn btn-danger btn-sm" onclick="delFile('${x.id}')"><i class="fas fa-trash"></i></button></div>`; }).join(''); }
+
+        let pt; const sb = document.getElementById('secretBtn'); sb.addEventListener('mousedown', () => { pt = setTimeout(openAdmin, 2000); }); sb.addEventListener('mouseup', () => clearTimeout(pt)); sb.addEventListener('mouseleave', () => clearTimeout(pt)); sb.addEventListener('touchstart', () => { pt = setTimeout(openAdmin, 2000); }); sb.addEventListener('touchend', () => clearTimeout(pt)); document.getElementById('adminModal').addEventListener('click', function(e) { if (e.target === this) closeAdmin(); });
+
+        renderGrades(); renderFiles(); updateTags(); updateHeroStats();
+        console.log('📚 مكتبة علوش التعليمية - جاهزة للنشر');
+        console.log('🔑 اضغط مطولاً على ⚙️ | كلمة المرور: admin123');
+    </script>
+</body>
+</html>
