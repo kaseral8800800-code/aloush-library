@@ -6,58 +6,47 @@
     "grade": "grade7",
     "subject": "الرياضيات",
     "category": "كتاب",
-    "link": "https://drive.google.com/file/d/13HddBq2Fq5xMngM1byErqcdj3g48HF2K/view?usp=drivesdk",
+    "link": "https://drive.google.com/file/d/EXAMPLE1/view",
     "date": "2024-01-01"
   },
   {
     "id": "2",
-    "name": "ملزمة العلوم للصف الثامن",
-    "specs": "150 صفحة | الحجم: 10MB",
+    "name": "كتاب العلوم للصف الثامن",
+    "specs": "200 صفحة | الحجم: 12MB",
     "grade": "grade8",
     "subject": "العلوم",
-    "category": "ملزمة",
-    "link": "https://drive.google.com/file/d/YYYYYYYYY/view",
+    "category": "كتاب",
+    "link": "https://drive.google.com/file/d/EXAMPLE2/view",
     "date": "2024-01-02"
   },
   {
     "id": "3",
-    "name": "مذكرة الفيزياء للصف التاسع",
-    "specs": "200 صفحة | الحجم: 12MB",
+    "name": "ملزمة الفيزياء للصف التاسع",
+    "specs": "150 صفحة | الحجم: 10MB",
     "grade": "grade9",
     "subject": "الفيزياء",
-    "category": "مذكرة",
-    "link": "https://drive.google.com/file/d/ZZZZZZZZZ/view",
+    "category": "ملزمة",
+    "link": "https://drive.google.com/file/d/EXAMPLE3/view",
     "date": "2024-01-03"
   },
   {
     "id": "4",
-    "name": "ملخص الفلسفة - بكالوريا أدبي",
-    "specs": "100 صفحة | الحجم: 5MB",
+    "name": "مذكرة الفلسفة - بكالوريا أدبي",
+    "specs": "180 صفحة | الحجم: 8MB",
     "grade": "bacLit",
     "subject": "الفلسفة",
-    "category": "ملخص",
-    "link": "https://drive.google.com/file/d/AAAAAAAAA/view",
+    "category": "مذكرة",
+    "link": "https://drive.google.com/file/d/EXAMPLE4/view",
     "date": "2024-01-04"
   },
   {
     "id": "5",
     "name": "دليل الكيمياء - بكالوريا علمي",
-    "specs": "350 صفحة | الحجم: 22MB | تجارب ومسائل",
+    "specs": "350 صفحة | الحجم: 22MB",
     "grade": "bacSci",
     "subject": "الكيمياء",
     "category": "دليل",
-    "link": "https://drive.google.com/file/d/BBBBBBBBB/view",
+    "link": "https://drive.google.com/file/d/EXAMPLE5/view",
     "date": "2024-01-05"
-  },
-  {
-  "id": "1786396004053",
-  "name": "علوم",
-  "specs": "نوطة علوم خوشناف",
-  "grade": "grade9",
-  "subject": "العلوم",
-  "category": "نوطة",
-  "link": "https://drive.google.com/file/d/13HddBq2Fq5xMngM1byErqcdj3g48HF2K/view?usp=drivesdk",
-  "date": "١١‏/٨‏/٢٠٢٦"
-}
-
+  }
 ]
