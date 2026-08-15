@@ -1,0 +1,26 @@
+{
+  "name": "مكتبة علوش التعليمية",
+  "short_name": "مكتبة علوش",
+  "description": "مكتبة الكتب والملفات التعليمية PDF",
+  "start_url": "/aloush-library/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='120' fill='%236366f1'/><text x='256' y='350' font-size='280' text-anchor='middle' fill='white'>ع</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='120' fill='%230f172a'/><text x='256' y='350' font-size='280' text-anchor='middle' fill='%236366f1'>ع</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
