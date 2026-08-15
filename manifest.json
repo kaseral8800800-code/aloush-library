@@ -1,10 +1,9 @@
 {
-  "icons": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%236366f1'/><stop offset='100%' stop-color='%23f59e0b'/></linearGradient></defs><rect width='512' height='512' rx='120' fill='url(%23g)'/><path d='M256 100L100 170l156 70 156-70-156-70z' fill='white'/><path d='M140 210v80c0 40 52 70 116 70s116-30 116-70v-80l-116 52-116-52z' fill='white' opacity='0.9'/><circle cx='256' cy='170' r='30' fill='%23f59e0b'/></svg>",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
-  ]
+  "name": "مكتبة علوش التعليمية",
+  "short_name": "مكتبة علوش",
+  "start_url": "/aloush-library/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#6366f1",
+  "icons": [{"src":"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='bg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%234f46e5'/><stop offset='50%' stop-color='%236366f1'/><stop offset='100%' stop-color='%2306b6d4'/></linearGradient></defs><rect width='512' height='512' rx='120' fill='url(%23bg)'/><path d='M256 130c-35-22-80-32-120-32v300c40 0 85 10 120 32 35-22 80-32 120-32V98c-40 0-85 10-120 32z' fill='white' opacity='0.95'/><path d='M256 130v300' stroke='%234f46e5' stroke-width='6' fill='none'/><path d='M170 160h70M170 200h70M170 240h70' stroke='%234f46e5' stroke-width='4' stroke-linecap='round'/><path d='M342 160h-70M342 200h-70M342 240h-70' stroke='%2306b6d4' stroke-width='4' stroke-linecap='round'/></svg>","sizes":"512x512","type":"image/svg+xml","purpose":"any"}]
 }
